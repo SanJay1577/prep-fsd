@@ -1,13 +1,26 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 import "./App.css";
 import InterviewCards from "./Components/InterviewCrads";
+import ParentCompoent from "./UnUsedComponents/ChildrenToParent";
 
 function App() {
-  const data = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  //States
+  const [interviewNotes, setInterviewNotes] = useState([]);
+  //mounting
+  useEffect(() => {
+    fetch("https://6614abd32fc47b4cf27cb460.mockapi.io/inter", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => setInterviewNotes(data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
-      <InterviewCards data={data} />
+      <InterviewCards data={interviewNotes} />
     </>
   );
 }
