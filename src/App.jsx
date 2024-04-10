@@ -4,6 +4,13 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import InterviewCards from "./Components/InterviewCrads";
 import ParentCompoent from "./UnUsedComponents/ChildrenToParent";
+import Header from "./Components/Header";
+import SearchBar from "./Components/SearchBar";
+import SideDrawer from "./Components/SideDrawer";
+import NavigationList from "./Components/NavigationList";
+import Content from "./Components/Content";
+import MainComp from "./Components/MainComp";
+import LandingPage from "./Pages/Landing";
 
 function App() {
   //States
@@ -20,7 +27,7 @@ function App() {
 
   return (
     <>
-      <InterviewCards data={interviewNotes} />
+      <LandingPage data={interviewNotes} />
     </>
   );
 }
