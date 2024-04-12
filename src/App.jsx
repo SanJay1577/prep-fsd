@@ -2,15 +2,9 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import "./App.css";
-import InterviewCards from "./Components/InterviewCrads";
-import ParentCompoent from "./UnUsedComponents/ChildrenToParent";
-import Header from "./Components/Header";
-import SearchBar from "./Components/SearchBar";
-import SideDrawer from "./Components/SideDrawer";
-import NavigationList from "./Components/NavigationList";
-import Content from "./Components/Content";
-import MainComp from "./Components/MainComp";
 import LandingPage from "./Pages/Landing";
+import Profile from "./Pages/Profile";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   //States
@@ -27,7 +21,14 @@ function App() {
 
   return (
     <>
-      <LandingPage data={interviewNotes} />
+      <Routes>
+        <Route exact path="/" element={<LandingPage data={interviewNotes} />} />
+        <Route path="/profile/:userId" element={<Profile />} />
+        <Route
+          path="*"
+          element={<h1 className="text-light">404 NO Page Found</h1>}
+        />
+      </Routes>
     </>
   );
 }

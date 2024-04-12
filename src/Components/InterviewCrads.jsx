@@ -16,30 +16,35 @@ function InterviewCard({ details }) {
   }
 
   return (
-    <div className="card w-96 bg-accent text-black p-2 rounded-lg">
-      <h2 className="text-lg font-extrabold">{details.companyName}</h2>
-      <h3 className="text-lg font-bold">{details.role}</h3>
+    <div className="card w-96 bg-neutral text-black p-2 rounded-lg">
+      <h2 className="text-lg text-accent font-extrabold">
+        {details.companyName}
+      </h2>
+      <h3 className="text-lg text-accent font-bold">{details.role}</h3>
 
-      <div className="m-2">
+      <div className="m-2 text-accent">
         <div className="collapse border border-base-300">
           <input type="checkbox" />
-          <div className="collapse-title text-xl font-bold">Questions</div>
-          <div className="collapse-content">
+          <div className="collapse-title text-xl font-bold text-accent">
+            Questions
+          </div>
+          <div className="collapse-content text-accent">
             <ul className="pl-2 p-2"> {mapAllQuestions(details.Questions)}</ul>
           </div>
         </div>
       </div>
-      <p>
-        <span className="font-bold">Date : </span> {details.date}
+      <p className="text-accent">
+        <span className="font-bold text-accent">Date : </span> {details.date}
       </p>
-      <p>
-        <span className="font-bold">Location : </span> {details.location}
+      <p className="text-accent">
+        <span className="font-bold text-accent">Location : </span>{" "}
+        {details.location}
       </p>
     </div>
   );
 }
 
 function QuestionComponent({ ques, show, setShow }) {
-  return <li>{ques}</li>;
+  return <li className="text-accent">{ques}</li>;
 }
 export default InterviewCards;

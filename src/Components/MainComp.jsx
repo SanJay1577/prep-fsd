@@ -8,7 +8,7 @@ const MainComp = ({ children }) => {
     <div className="flex ">
       <div className="w-15 rounded-lg">
         <SideDrawer>
-          <NavigationList></NavigationList>
+          <NavigationList />
         </SideDrawer>
       </div>
       <div className="w-4/5">
