@@ -25,7 +25,10 @@ export default function NavigationList() {
         </button>
       </li>
       <li>
-        <button className="btn btn-wide bg-accent text-white hover:bg-violet-600">
+        <button
+          className="btn btn-wide bg-accent text-white hover:bg-violet-600"
+          onClick={() => navigate(`/add/interview`)}
+        >
           AddNotes
         </button>
       </li>

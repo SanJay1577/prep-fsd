@@ -5,6 +5,7 @@ import "./App.css";
 import LandingPage from "./Pages/Landing";
 import Profile from "./Pages/Profile";
 import { Routes, Route } from "react-router-dom";
+import AddNotes from "./Pages/AddNotes";
 
 function App() {
   //States
@@ -28,6 +29,7 @@ function App() {
           path="*"
           element={<h1 className="text-light">404 NO Page Found</h1>}
         />
+        <Route path="/add/interview" element={<AddNotes />} />
       </Routes>
     </>
   );
