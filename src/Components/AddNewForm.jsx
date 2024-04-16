@@ -1,28 +1,44 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
-export default function AddNewForm() {
+export default function AddNewForm({ interviewNotes, setInterviewNotes }) {
   //states for the fields
   const [companyName, setCompanyName] = useState("");
   const [role, setRole] = useState("");
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [question, setQuestions] = useState([""]);
-  const [data, setData] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   //handlers
   function handleSubmit(e) {
+    e.preventDefault();
     const dataSet = {
       companyName,
       role,
       date,
       location,
-      question,
+      Questions: question,
     };
-    e.preventDefault();
-    setData(JSON.stringify(dataSet));
+    fetch("https://6614abd32fc47b4cf27cb460.mockapi.io/inter", {
+      method: "POST",
+      body: JSON.stringify(dataSet),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setInterviewNotes([...interviewNotes, data]))
+      .then(() => setSuccessMessage("New Data Added Succesfuly"))
+      .catch((err) => {
+        console.log(err);
+        setErrorMessage("Error Adding new Data");
+      });
   }
 
-  function addNewQuestionField() {
+  function addNewQuestionField(e) {
+    e.preventDefault();
     const list = [...question, ""];
     setQuestions(list);
   }
@@ -39,7 +55,7 @@ export default function AddNewForm() {
         <div className="text-accent text-center text-xl font-bold">
           Add New Interview Data
         </div>
-        <form className="grid grid-cols-1 gap-4 p-5 " onSubmit={handleSubmit}>
+        <form className="grid grid-cols-1 gap-4 p-5 ">
           <input
             className="p-3 rounded-lg"
             placeholder="companyName"
@@ -85,11 +101,25 @@ export default function AddNewForm() {
           <button
             className="btn btn-accent place-self-center w-24"
             type="submit"
+            onClick={handleSubmit}
           >
             Submit
           </button>
         </form>
-        <div className="text-lg">{data}</div>
+        {successMessage ? (
+          <div className="text-success text-center font-bold text-lg">
+            {successMessage}
+          </div>
+        ) : (
+          ""
+        )}
+        {errorMessage ? (
+          <div className="text-error text-center font-bold text-lg">
+            {errorMessage}
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
