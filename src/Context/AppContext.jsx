@@ -1,10 +1,14 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { createContext, useContext, useState } from "react";
-import { ViewNotex } from "../Pages/ViewNotex";
 
-export const AppCtx = createContext(null);
+const AppCtx = createContext(null);
 
-export default function AppContext() {
+export default function AppContext({ children }) {
+  const initialData = {
+    theme: "dark",
+  };
+
   const [theme, setTheme] = useState("dark");
   //Three steps
   //1. Create an context
@@ -14,8 +18,12 @@ export default function AppContext() {
     <div>
       <AppCtx.Provider value={{ theme, setTheme }}>
         {/* subscriber */}
-        <ViewNotex />
+        {children}
       </AppCtx.Provider>
     </div>
   );
+}
+
+export function AppState() {
+  return useContext(AppCtx);
 }

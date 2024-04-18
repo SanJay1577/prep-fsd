@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useContext } from "react";
+
 import Header from "../Components/Header";
 
 import MainComp from "../Components/MainComp";
-import { AppCtx } from "../Context/AppContext";
+import { AppState } from "../Context/AppContext";
 
 export const ViewNotex = () => {
   return (
@@ -35,7 +35,7 @@ function SecondComponent() {
 }
 function ThirdComponent() {
   // Third step
-  const { theme } = useContext(AppCtx);
+  const { theme } = AppState(); //useContext(Appctx)
   return (
     <div>
       <p>ThirdComponent -------- {theme}</p>

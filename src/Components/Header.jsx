@@ -1,6 +1,10 @@
 /* eslint-disable react/prop-types */
 
+import { MoonIcon, SunIcon } from "@heroicons/react/16/solid";
+import { AppState } from "../Context/AppContext";
+
 export default function Header({ children }) {
+  const { theme, setTheme } = AppState();
   return (
     <div className="m-2">
       <div className="navbar bg-base-300 rounded-lg">
@@ -8,6 +12,20 @@ export default function Header({ children }) {
           <a className="btn btn-ghost text-xl">PrepPal</a>
         </div>
         <div className="flex-none gap-2">
+          <div>
+            {theme === "light" ? (
+              <MoonIcon
+                className="h-6 w-6 bg-accent-500"
+                onClick={() => setTheme("buisness")}
+              />
+            ) : (
+              <SunIcon
+                className="h-6 w-6 bg-accent-500"
+                onClick={() => setTheme("light")}
+              />
+            )}
+          </div>
+
           <div className="form-control">{children}</div>
           <div className="dropdown dropdown-end">
             <div

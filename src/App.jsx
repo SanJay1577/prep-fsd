@@ -7,11 +7,12 @@ import Profile from "./Pages/Profile";
 import { Routes, Route } from "react-router-dom";
 import AddNotes from "./Pages/AddNotes";
 import { ViewNotex } from "./Pages/ViewNotex";
-import AppContext from "./Context/AppContext";
+import AppContext, { AppState } from "./Context/AppContext";
 
 function App() {
   //States
   const [interviewNotes, setInterviewNotes] = useState([]);
+  const { theme } = AppState();
   //mounting
   useEffect(() => {
     fetch("https://6614abd32fc47b4cf27cb460.mockapi.io/inter", {
@@ -23,8 +24,8 @@ function App() {
   }, []);
 
   return (
-    <>
-      {/* <Routes>
+    <div data-theme={theme}>
+      <Routes>
         <Route exact path="/" element={<LandingPage data={interviewNotes} />} />
         <Route path="/profile/:userId" element={<Profile />} />
         <Route
@@ -41,9 +42,8 @@ function App() {
           }
         />
         <Route path="/view/notes" element={<ViewNotex />} />
-      </Routes> */}
-      <AppContext />
-    </>
+      </Routes>
+    </div>
   );
 }
 
