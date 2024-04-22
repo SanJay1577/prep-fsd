@@ -10,13 +10,14 @@ export default function AppContext({ children }) {
   };
 
   const [theme, setTheme] = useState("dark");
+  const [userId, setUserId] = useState("1");
   //Three steps
   //1. Create an context
   //2. Make Publish and Subscribe with data
   //3. use the context
   return (
     <div>
-      <AppCtx.Provider value={{ theme, setTheme }}>
+      <AppCtx.Provider value={{ theme, setTheme, userId }}>
         {/* subscriber */}
         {children}
       </AppCtx.Provider>

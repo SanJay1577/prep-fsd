@@ -10,7 +10,7 @@ function InterviewCards({ data }) {
   );
 }
 
-function InterviewCard({ details }) {
+export function InterviewCard({ details }) {
   function mapAllQuestions(ques) {
     return ques.map((val, idx) => <QuestionComponent ques={val} key={idx} />);
   }

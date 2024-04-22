@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import AddNotes from "./Pages/AddNotes";
 import { ViewNotex } from "./Pages/ViewNotex";
 import AppContext, { AppState } from "./Context/AppContext";
+import EditNotes from "./Pages/EditNotes";
 
 function App() {
   //States
@@ -41,7 +42,19 @@ function App() {
             />
           }
         />
-        <Route path="/view/notes" element={<ViewNotex />} />
+        <Route
+          path="/edit/interview/:id"
+          element={
+            <EditNotes
+              interviewNotes={interviewNotes}
+              setInterviewNotes={setInterviewNotes}
+            />
+          }
+        />
+        <Route
+          path="/view/notes"
+          element={<ViewNotex interviewNotes={interviewNotes} />}
+        />
       </Routes>
     </div>
   );

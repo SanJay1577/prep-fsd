@@ -16,7 +16,7 @@ export default function Header({ children }) {
             {theme === "light" ? (
               <MoonIcon
                 className="h-6 w-6 bg-accent-500"
-                onClick={() => setTheme("buisness")}
+                onClick={() => setTheme("dark")}
               />
             ) : (
               <SunIcon
