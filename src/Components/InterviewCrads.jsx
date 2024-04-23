@@ -4,8 +4,13 @@
 function InterviewCards({ data }) {
   return (
     <div className="flex flex-wrap gap-2 justify-around">
-      {data &&
-        data?.map((val, idx) => <InterviewCard details={val} key={idx} />)}
+      {data && (
+        <>
+          {data?.map((val, idx) => (
+            <InterviewCard details={val} key={idx} />
+          ))}
+        </>
+      )}
     </div>
   );
 }
@@ -29,7 +34,7 @@ export function InterviewCard({ details }) {
             Questions
           </div>
           <div className="collapse-content text-accent">
-            <ul className="pl-2 p-2"> {mapAllQuestions(details.Questions)}</ul>
+            <ul className="pl-2 p-2"> {mapAllQuestions(details.questions)}</ul>
           </div>
         </div>
       </div>

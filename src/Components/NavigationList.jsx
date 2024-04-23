@@ -34,7 +34,7 @@ export default function NavigationList() {
       </li>
       <li>
         <button
-          className="btn btn-wide bg-accent text-white hover:bg-violet-600"
+          className="btn btn-wide bg-accent text-white hover:bg-violet-600 "
           onClick={() => navigate(`/view/notes`)}
         >
           ViewNotes

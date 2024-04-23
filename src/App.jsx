@@ -53,7 +53,12 @@ function App() {
         />
         <Route
           path="/view/notes"
-          element={<ViewNotex interviewNotes={interviewNotes} />}
+          element={
+            <ViewNotex
+              interviewNotes={interviewNotes}
+              setInterviewNotes={setInterviewNotes}
+            />
+          }
         />
       </Routes>
     </div>

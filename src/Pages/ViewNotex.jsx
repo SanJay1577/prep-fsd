@@ -9,7 +9,7 @@ import { AppState } from "../Context/AppContext";
 import { InterviewCard } from "../Components/InterviewCrads";
 import { useNavigate } from "react-router-dom";
 
-export const ViewNotex = ({ interviewNotes }) => {
+export const ViewNotex = ({ interviewNotes, setInterviewNotes }) => {
   const [userNotes, setUserNotes] = useState([]);
   const { userId } = AppState();
 
@@ -26,6 +26,8 @@ export const ViewNotex = ({ interviewNotes }) => {
             <InterCardsWithAction
               data={userNotes}
               setUserNotes={setUserNotes}
+              interviewNotes={interviewNotes}
+              setInterviewNotes={setInterviewNotes}
             />
           </>
         )}
@@ -34,7 +36,12 @@ export const ViewNotex = ({ interviewNotes }) => {
   );
 };
 
-function InterCardsWithAction({ data, setUserNotes }) {
+function InterCardsWithAction({
+  data,
+  setUserNotes,
+  interviewNotes,
+  setInterviewNotes,
+}) {
   return (
     <div className="flex flex-wrap gap-2 justify-around">
       {data &&
@@ -43,6 +50,8 @@ function InterCardsWithAction({ data, setUserNotes }) {
             details={val}
             key={idx}
             setUserNotes={setUserNotes}
+            interviewNotes={interviewNotes}
+            setInterviewNotes={setInterviewNotes}
             userNotes={data}
           />
         ))}
@@ -50,7 +59,13 @@ function InterCardsWithAction({ data, setUserNotes }) {
   );
 }
 
-function UserInterviewCard({ details, userNotes, setUserNotes }) {
+function UserInterviewCard({
+  details,
+  userNotes,
+  setUserNotes,
+  interviewNotes,
+  setInterviewNotes,
+}) {
   const navigate = useNavigate();
   function deleteInterviewNotes(id) {
     fetch(`https://6614abd32fc47b4cf27cb460.mockapi.io/inter/${id}`, {
@@ -63,7 +78,11 @@ function UserInterviewCard({ details, userNotes, setUserNotes }) {
       .then((data) => {
         if (data) {
           const afterDelete = userNotes.filter((notes) => notes.id != id);
+          const interviewData = interviewNotes.filter(
+            (notes) => notes.id != id
+          );
           setUserNotes([...afterDelete]);
+          setInterviewNotes([...interviewData]);
         } else {
           console.log("Error occured");
         }

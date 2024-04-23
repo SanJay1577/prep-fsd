@@ -24,7 +24,7 @@ export default function EditInterviewForm({
     setCompanyName(selectedNotes[0].companyName);
     setRole(selectedNotes[0].role);
     setDate(selectedNotes[0].date);
-    setQuestions([...selectedNotes[0].Questions]);
+    setQuestions([...selectedNotes[0].questions]);
     setLocation(selectedNotes[0].location);
   }, []);
 
@@ -36,7 +36,7 @@ export default function EditInterviewForm({
       role,
       date,
       location,
-      Questions: question,
+      question,
     };
     fetch(`https://6614abd32fc47b4cf27cb460.mockapi.io/inter/${editId}`, {
       method: "PUT",
@@ -48,7 +48,7 @@ export default function EditInterviewForm({
       .then((res) => res.json())
       .then((data) => {
         interviewNotes[notesIndex] = data;
-        setInterviewNotes(...interviewNotes);
+        setInterviewNotes([...interviewNotes]);
       })
       .then(() => setSuccessMessage("Data updated successfully"))
       .catch((err) => {

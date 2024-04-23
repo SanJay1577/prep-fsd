@@ -1,29 +1,41 @@
 /* eslint-disable react/prop-types */
+import { useFormik } from "formik";
 import { useState } from "react";
+import { interviewSchema } from "../Schema/schema";
 
 export default function AddNewForm({ interviewNotes, setInterviewNotes }) {
+  // formik implemention(form validation)
+  const {
+    values,
+    handleChange,
+    setValues,
+    handleSubmit,
+    handleBlur,
+    errors,
+    touched,
+  } = useFormik({
+    initialValues: {
+      companyName: "",
+      role: "",
+      date: "",
+      location: "",
+      questions: [""],
+      userId: "1",
+    },
+    validationSchema: interviewSchema,
+    onSubmit: (newInterviewData) => {
+      addNewInterviewNotes(newInterviewData);
+    },
+  });
   //states for the fields
-  const [companyName, setCompanyName] = useState("");
-  const [role, setRole] = useState("");
-  const [date, setDate] = useState("");
-  const [location, setLocation] = useState("");
-  const [question, setQuestions] = useState([""]);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   //handlers
-  function handleSubmit(e) {
-    e.preventDefault();
-    const dataSet = {
-      companyName,
-      role,
-      date,
-      location,
-      Questions: question,
-    };
+  function addNewInterviewNotes(newInterviewNote) {
     fetch("https://6614abd32fc47b4cf27cb460.mockapi.io/inter", {
       method: "POST",
-      body: JSON.stringify(dataSet),
+      body: JSON.stringify(newInterviewNote),
       headers: {
         "Content-Type": "application/json",
       },
@@ -37,17 +49,17 @@ export default function AddNewForm({ interviewNotes, setInterviewNotes }) {
       });
   }
 
-  function addNewQuestionField(e) {
+  function addNewQuestionsField(e) {
     e.preventDefault();
-    const list = [...question, ""];
-    setQuestions(list);
+    console.log("hanlde questionss");
+    setValues({ ...values, questions: [...values.questions, ""] });
   }
 
-  function handleQuestions(event, index) {
-    const list = [...question];
-    list[index] = event.target.value;
-    setQuestions(list);
-  }
+  // function handleQuestionss(event, index) {
+  //   const list = [...questions];
+  //   list[index] = event.target.value;
+  //   setQuestionss(list);
+  // }
 
   return (
     <div>
@@ -55,53 +67,94 @@ export default function AddNewForm({ interviewNotes, setInterviewNotes }) {
         <div className="text-accent text-center text-xl font-bold">
           Add New Interview Data
         </div>
-        <form className="grid grid-cols-1 gap-4 p-5 ">
+        <form className="grid grid-cols-1 gap-4 p-5 " onSubmit={handleSubmit}>
           <input
             className="p-3 rounded-lg"
             placeholder="companyName"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
+            value={values.companyName}
+            name="companyName"
+            onBlur={handleBlur}
+            onChange={handleChange}
           />
+          {touched.companyName && errors.companyName ? (
+            <div className="text-error text-center">{errors.companyName}</div>
+          ) : (
+            ""
+          )}
           <input
             className="p-3 rounded-lg"
             placeholder="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
+            value={values.role}
+            name="role"
+            onBlur={handleBlur}
+            onChange={handleChange}
           />
+          {touched.role && errors.role ? (
+            <div className="text-error text-center">{errors.role}</div>
+          ) : (
+            ""
+          )}
           <div className="grid grid-cols-2 place-items-center">
-            <p className="text-lg text-accent font-bold "> Add questions</p>
+            <p className="text-lg text-accent font-bold "> Add questionss</p>
             <button
               className="btn btn-accent w-24"
-              onClick={addNewQuestionField}
+              onClick={addNewQuestionsField}
             >
               Add
             </button>
           </div>
-          {question?.map((ques, index) => (
-            <input
-              key={index}
-              className="p-3 rounded-lg border-4 border-accent"
-              placeholder="questions"
-              onChange={(e) => handleQuestions(e, index)}
-            />
+          {values.questions?.map((ques, index) => (
+            <>
+              <input
+                key={index}
+                name={`questions.${index}`}
+                value={ques}
+                className="p-3 rounded-lg border-4 border-accent"
+                placeholder="Enter new questions"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              />
+              {touched.questions && errors.questions ? (
+                <div className="text-error text-center">Please fill</div>
+              ) : (
+                ""
+              )}
+            </>
           ))}
+
           <input
             className="p-3 rounded-lg"
             placeholder="date"
             type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            name="date"
+            value={values.date}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
+          {touched.date && errors.date ? (
+            <div className="text-error text-center">{errors.date}</div>
+          ) : (
+            ""
+          )}
+
           <input
             className="p-3 rounded-lg"
             placeholder="location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            name="location"
+            value={values.location}
+            onChange={handleChange}
+            onBlur={handleBlur}
           />
+
+          {touched.location && errors.location ? (
+            <div className="text-error text-center">{errors.location}</div>
+          ) : (
+            ""
+          )}
+
           <button
             className="btn btn-accent place-self-center w-24"
             type="submit"
-            onClick={handleSubmit}
           >
             Submit
           </button>
