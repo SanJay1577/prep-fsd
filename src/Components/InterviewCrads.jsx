@@ -17,7 +17,7 @@ function InterviewCards({ data }) {
 
 export function InterviewCard({ details }) {
   function mapAllQuestions(ques) {
-    return ques.map((val, idx) => <QuestionComponent ques={val} key={idx} />);
+    return ques?.map((val, idx) => <QuestionComponent ques={val} key={idx} />);
   }
 
   return (
@@ -44,6 +44,10 @@ export function InterviewCard({ details }) {
       <p className="text-accent">
         <span className="font-bold text-accent">Location : </span>{" "}
         {details.location}
+      </p>
+      <p className="text-accent">
+        <span className="font-bold text-accent">Posted by : </span>{" "}
+        {details.user.username}
       </p>
     </div>
   );

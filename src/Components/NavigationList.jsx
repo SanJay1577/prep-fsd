@@ -5,6 +5,11 @@ export default function NavigationList() {
   // eslint-disable-next-line no-unused-vars
   const [id, setId] = useState("1");
   const navigate = useNavigate();
+
+  function handleLogout() {
+    localStorage.removeItem("token");
+    navigate("/login");
+  }
   return (
     <ul className="flex flex-col gap-8">
       <li>
@@ -41,8 +46,19 @@ export default function NavigationList() {
         </button>
       </li>
       <li>
-        <button className="btn btn-wide bg-accent text-white hover:bg-violet-600">
-          MyInterview
+        <button
+          className="btn btn-wide bg-accent text-white hover:bg-violet-600"
+          onClick={() => navigate("/login")}
+        >
+          Login
+        </button>
+      </li>
+      <li>
+        <button
+          className="btn btn-wide bg-accent text-white hover:bg-violet-600"
+          onClick={handleLogout}
+        >
+          logout
         </button>
       </li>
     </ul>

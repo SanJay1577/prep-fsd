@@ -9,6 +9,8 @@ import AddNotes from "./Pages/AddNotes";
 import { ViewNotex } from "./Pages/ViewNotex";
 import AppContext, { AppState } from "./Context/AppContext";
 import EditNotes from "./Pages/EditNotes";
+import { BASE_API, POST_BASE_API } from "./Api";
+import LoginPage from "./Pages/Login";
 
 function App() {
   //States
@@ -16,11 +18,14 @@ function App() {
   const { theme } = AppState();
   //mounting
   useEffect(() => {
-    fetch("https://6614abd32fc47b4cf27cb460.mockapi.io/inter", {
+    fetch(`${BASE_API}${POST_BASE_API}all`, {
       method: "GET",
+      headers: {
+        "x-auth-token": localStorage.getItem("token"),
+      },
     })
       .then((res) => res.json())
-      .then((data) => setInterviewNotes(data))
+      .then((data) => setInterviewNotes(data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -28,6 +33,7 @@ function App() {
     <div data-theme={theme}>
       <Routes>
         <Route exact path="/" element={<LandingPage data={interviewNotes} />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/profile/:userId" element={<Profile />} />
         <Route
           path="*"
